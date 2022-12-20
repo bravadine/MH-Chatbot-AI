@@ -19,6 +19,7 @@ class Bot:
     doc_x = []      # contains all pattern corresponding to doc_y tag
     doc_y = []      # contains all tag corresponding to doc_x pattern
     model = None
+    context = None
 
     def __load_dataset(self, path):
         with open(path) as file:
@@ -111,6 +112,8 @@ class Bot:
         list_of_intents = self.data["intents"]
         for intent in list_of_intents:
             if intent["tag"] == tag:
+                if "context_set" in intent:
+                    self.context = intent["context_set"]
                 return random.choice(intent["responses"])
         return None
 
@@ -132,6 +135,9 @@ class Bot:
             response = self.__choose_response(return_list)
 
         return response if response is not None else "Sorry, I don't understand you."
+
+    def get_current_context(self):
+        return self.context
 
     def __init__(self, dataset="./dataset/intents.json"):
         self.__load_dataset(dataset)
