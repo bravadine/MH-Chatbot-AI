@@ -74,7 +74,7 @@ class Bot:
     def __train(self, train_x, train_y):
         input_shape = (len(train_x[0]),)
         output_shape = len(train_y[0])
-        epochs = 200
+        epochs = 5000
 
         # Deep learning model
         model = Sequential()
