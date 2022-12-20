@@ -7,7 +7,7 @@
         "Is anyone there?",
         "Hello",
         "Good day",
-        "What's up"
+        "What's up",
         "Good morning",
         "Good afternoon",
         "Good evening",
@@ -25,7 +25,7 @@
       "tag": "who",
       "patterns": [
         "who are you?",
-        "what's your name?"
+        "what's your name?",
         "what are you?"
       ],
       "responses": [
@@ -43,7 +43,9 @@
         "See ya",
         "Goodbye",
         "I am leaving",
-        "Have a good day"
+        "Have a good day",
+        "quit",
+        "exit"
       ],
       "responses": [
         "See you!",
@@ -51,7 +53,7 @@
         "Goodbye!",
         "Nice chatting with you!"
       ],
-      "context_set": ""
+      "context_set": "exit"
     },
     {
       "tag": "age",
