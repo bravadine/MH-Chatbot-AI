@@ -7,6 +7,7 @@ from nltk.stem import WordNetLemmatizer
 from keras import Sequential
 from keras.layers import Dense, Dropout
 from keras.optimizers import Adam
+from keras.models import load_model
 nltk.download("punkt")
 nltk.download("wordnet")
 nltk.download("omw-1.4")
@@ -88,10 +89,14 @@ class Bot:
         print(model.summary())
 
         # Train data
-        model.fit(x=train_x, y=train_y, epochs=epochs, verbose=1)
-        model.save("./model")
+        try:
+            trained_model = load_model("./model")
+        except:
+            model.fit(x=train_x, y=train_y, epochs=epochs, verbose=1)
+            model.save("./model")
+            trained_model = model
 
-        return model
+        return trained_model
 
     def __clean_text(self, text):
         tokens = nltk.word_tokenize(text)
@@ -121,8 +126,7 @@ class Bot:
         bow = self.__bag_of_words(message)
         result = self.model.predict(np.array([bow]))[0]
 
-        thresh = 0.9
-        result_index = [[idx, res] for idx, res in enumerate(result) if res > thresh]
+        result_index = [[idx, res] for idx, res in enumerate(result) if res > self.threshold]
         result_index.sort(key=lambda x: x[1], reverse=True)
 
         return_list = []
@@ -139,7 +143,8 @@ class Bot:
     def get_current_context(self):
         return self.context
 
-    def __init__(self, dataset="./dataset/intents.json"):
+    def __init__(self, dataset="./dataset/intents.json", threshold = 0.9):
+        self.threshold = threshold
         self.__load_dataset(dataset)
         self.__preprocessing()
         x, y = self.__create_train_data()
