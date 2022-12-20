@@ -2,24 +2,22 @@ import json
 import random
 import nltk
 import string
-import pickle
 import numpy as np
-import tensorflow as tf
 from nltk.stem import WordNetLemmatizer
-from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Dense, Dropout
-from tensorflow.keras.optimizers import Adam
+from keras import Sequential
+from keras.layers import Dense, Dropout
+from keras.optimizers import Adam
 nltk.download("punkt")
 nltk.download("wordnet")
-nltk.download('omw-1.4')
+nltk.download("omw-1.4")
 
 class Bot:
     lemmatizer = WordNetLemmatizer()
-    data = [] # contains dataset json data
-    words = [] # contains list of preprocessed words
-    classes = [] # contains all non duplicate tag
-    doc_x = [] # contains all pattern corresponding to doc_y tag
-    doc_y = [] # contains all tag corresponding to doc_x pattern
+    data = []       # contains dataset json data
+    words = []      # contains list of preprocessed words
+    classes = []    # contains all non duplicate tag
+    doc_x = []      # contains all pattern corresponding to doc_y tag
+    doc_y = []      # contains all tag corresponding to doc_x pattern
     model = None
 
     def __load_dataset(self, path):
@@ -78,7 +76,7 @@ class Bot:
 
         # Deep learning model
         model = Sequential()
-        model.add(Dense(128 ,input_shape=input_shape, activation="relu"))
+        model.add(Dense(128, input_shape=input_shape, activation="relu"))
         model.add(Dropout(0.5))
         model.add(Dense(64, activation="relu"))
         model.add(Dropout(0.3))
@@ -113,9 +111,8 @@ class Bot:
         list_of_intents = self.data["intents"]
         for intent in list_of_intents:
             if intent["tag"] == tag:
-                result = random.choice(intent["responses"])
-                break
-        return result
+                return random.choice(intent["responses"])
+        return None
 
     def get_bot_response(self, message):
         bow = self.__bag_of_words(message)
@@ -129,15 +126,15 @@ class Bot:
         for r in result_index:
             return_list.append(self.classes[r[0]])
 
-        if (len(return_list) == 0):
-            response = "Sorry, i dont understand :("
+        if len(return_list) == 0:
+            response = None
         else:
             response = self.__choose_response(return_list)
 
-        return response
+        return response if response is not None else "Sorry, I don't understand you."
 
-    def __init__(self, dataset = "./dataset/test_dataset.json"):
+    def __init__(self, dataset="./dataset/intents.json"):
         self.__load_dataset(dataset)
         self.__preprocessing()
         x, y = self.__create_train_data()
-        self.model = self.__train(x,y)
+        self.model = self.__train(x, y)
