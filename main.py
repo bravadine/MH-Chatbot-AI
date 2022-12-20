@@ -3,7 +3,8 @@ from bot import Bot
 if __name__ == "__main__":
     bot = Bot("Charlie")
     print("Chatbot is ready to talk with you! Say goodbye to the bot to end the session.")
-    while bot.get_current_context() != "exit":
-        message = input("You:")
-        response = bot.get_bot_response(message)
+
+    while bot.chat_context() != "EXIT_PROGRAM":
+        message = input("\nYou: ")
+        response = bot.chat_respond(message)
         print("Bot:", response)
