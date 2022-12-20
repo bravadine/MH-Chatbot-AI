@@ -102,7 +102,19 @@
         "Can I have some information about bipolar?"
       ],
       "responses": [
-      "Bipolar disorder, also known as manic-depressive illness, is a brain disorder that causes unusual shifts in mood, energy, and activity levels. These shifts can range from the lows of depression to the highs of mania.People with bipolar disorder experience periods of elevated mood and energy, called manic episodes, as well as periods of depression. The severity of these episodes can vary. Some people with bipolar disorder have mostly manic episodes, while others have mostly depressive episodes."
+      "I see that you want to learn more about anxiety, and how to support yourself or your loved ones. Bipolar disorder, also known as manic-depressive illness, is a brain disorder that causes unusual shifts in mood, energy, and activity levels. These shifts can range from the lows of depression to the highs of mania.People with bipolar disorder experience periods of elevated mood and energy, called manic episodes, as well as periods of depression. The severity of these episodes can vary. Some people with bipolar disorder have mostly manic episodes, while others have mostly depressive episodes."
+      ]
+    },
+    {
+      "tag": "depression",
+      "patterns": [
+        "I think I have depression",
+        "What is depression?",
+        "Tell me about depression",
+        "Can I have some information about depression?"
+      ],
+      "responses": [
+      "I see that you want to learn more about anxiety, and how to support yourself or your loved ones. Depression is a common and serious medical illness that negatively affects how you feel, the way you think and how you act. It causes feelings of sadness, hopelessness, and loss of interest in activities that a person normally enjoys. Depression can lead to a variety of emotional and physical problems and can decrease a person's ability to function at work and at home."
       ]
     }
   ]
