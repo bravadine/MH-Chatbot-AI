@@ -138,14 +138,17 @@ class Bot:
         else:
             response = self.__choose_response(return_list)
 
-        return response if response is not None else "Sorry, I don't understand you."
+        return response.format(name=self.name) if response is not None else "Sorry, I don't understand you."
 
     def get_current_context(self):
         return self.context
 
-    def __init__(self, dataset="./dataset/intents.json", threshold = 0.9):
+    def __init__(self, name, dataset="./dataset/intents.json", threshold = 0.9):
+        self.name = name
         self.threshold = threshold
+
         self.__load_dataset(dataset)
         self.__preprocessing()
+
         x, y = self.__create_train_data()
         self.model = self.__train(x, y)
