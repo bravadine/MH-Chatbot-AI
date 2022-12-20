@@ -80,6 +80,20 @@
       ],
       "responses": ["We are open 7am-4pm Monday-Friday!"],
       "context_set": ""
+    },
+    {
+      "tag": "anxiety",
+      "patterns": [
+        "I think I have anxiety",
+        "What is anxiety?",
+        "Tell me about anxiety",
+        "Can I have some information about anxiety?",
+        "How do I support a loved one with anxiety?",
+        "How do I fix my anxiety?"
+      ],
+      "responses": [
+      "I see that you want to learn more about anxiety, and how to support yourself or your loved ones. At the higest level, anxiety is your body's natural response to stress. It's a feeling of fear or apprehension about what's to come. The first day of school, going to a job interview, or giving a speech may cause most people to feel fearful and nervous. We all get anxious sometimes, but anxiety becomes a problem when it starts affecting your daily life drastically. The best thing that you can do to help reduce anxiety is to take a few deep breaths and talk to someone about what you're feeling. Some natural remedies that you can try include: getting enough sleep meditating, staying active and exercising, eating a healthy diet, staying active and working out, avoiding alcohol, avoiding caffeine, and quitting smoking cigarettes. Support your friends and loved ones by checking up on them and just listening. Whatever you're feeling is valid."
+      ]
     }
   ]
 }
