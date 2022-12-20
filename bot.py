@@ -1,4 +1,5 @@
 import json
+import os
 import random
 import nltk
 import string
@@ -8,59 +9,62 @@ from keras import Sequential
 from keras.layers import Dense, Dropout
 from keras.optimizers import Adam
 from keras.models import load_model
+
 nltk.download("punkt")
 nltk.download("wordnet")
 nltk.download("omw-1.4")
 
+
 class Bot:
-    lemmatizer = WordNetLemmatizer()
-    data = []       # contains dataset json data
-    words = []      # contains list of preprocessed words
-    classes = []    # contains all non duplicate tag
-    doc_x = []      # contains all pattern corresponding to doc_y tag
-    doc_y = []      # contains all tag corresponding to doc_x pattern
-    model = None
-    context = None
+    __lemmatizer = WordNetLemmatizer()
+    __data = []  # contains dataset json data
+    __words = []  # contains list of preprocessed words
+    __classes = []  # contains all non duplicate tag
+    __doc_x = []  # contains all pattern corresponding to doc_y tag
+    __doc_y = []  # contains all tag corresponding to doc_x pattern
+
+    __chat_context = None
 
     def __load_dataset(self, path):
-        with open(path) as file:
-            self.data = json.load(file)
+        with open(path, "r") as file:
+            self.__data.append(json.load(file))
 
-    def __preprocessing(self):
+    def __preprocess_dataset(self):
         # Tokenization
-        for intent in self.data["intents"]:
-            tag = intent["tag"]
-            for pattern in intent["patterns"]:
-                pattern_token = nltk.word_tokenize(pattern)
-                self.words.extend(pattern_token)
-                self.doc_x.append(pattern_token)
-                self.doc_y.append(tag)
-            if tag not in self.classes:
-                self.classes.append(tag)
+        for dataset in self.__data:
+            for intent in dataset["intents"]:
+                tag = intent["tag"]
+                for pattern in intent["patterns"]:
+                    pattern_token = nltk.word_tokenize(pattern)
+                    self.__words.extend(pattern_token)
+                    self.__doc_x.append(pattern_token)
+                    self.__doc_y.append(tag)
+                if tag not in self.__classes:
+                    self.__classes.append(tag)
 
-        # Lemmatization and remove punctuation
-        self.words = [
-            self.lemmatizer.lemmatize(word.lower())
-            for word in self.words if word not in string.punctuation
-        ]
+            # Lemmatization and remove punctuation
+            self.__words = [
+                self.__lemmatizer.lemmatize(word.lower())
+                for word in self.__words if word not in string.punctuation
+            ]
 
         # Sorting vocab alphabetical order & remove duplicate
-        self.words = sorted(list(set(self.words)))
-        self.classes = sorted(self.classes)
+        self.__words = sorted(list(set(self.__words)))
+        self.__classes = sorted(self.__classes)
 
     def __create_train_data(self):
         training = []
-        out_empty = [0] * len(self.classes)
+        out_empty = [0] * len(self.__classes)
 
-        for index, pattern_tokens in enumerate(self.doc_x):
+        for index, pattern_tokens in enumerate(self.__doc_x):
             bag = []
-            text = [self.lemmatizer.lemmatize(word.lower()) for word in pattern_tokens]
+            text = [self.__lemmatizer.lemmatize(word.lower()) for word in pattern_tokens]
 
-            for word in self.words:
+            for word in self.__words:
                 bag.append(1) if word in text else bag.append(0)
 
             output_row = list(out_empty)
-            output_row[self.classes.index(self.doc_y[index])] = 1
+            output_row[self.__classes.index(self.__doc_y[index])] = 1
             training.append([bag, output_row])
 
         random.shuffle(training)
@@ -71,7 +75,8 @@ class Bot:
 
         return train_x, train_y
 
-    def __train(self, train_x, train_y):
+    @staticmethod
+    def __train(train_x, train_y, model_path="./model"):
         input_shape = (len(train_x[0]),)
         output_shape = len(train_y[0])
         epochs = 200
@@ -90,65 +95,68 @@ class Bot:
 
         # Train data
         try:
-            trained_model = load_model("./model")
+            trained_model = load_model(model_path)
         except:
             model.fit(x=train_x, y=train_y, epochs=epochs, verbose=1)
-            model.save("./model")
+            model.save(model_path)
             trained_model = model
 
         return trained_model
 
     def __clean_text(self, text):
         tokens = nltk.word_tokenize(text)
-        tokens = [self.lemmatizer.lemmatize(word.lower()) for word in tokens]
+        tokens = [self.__lemmatizer.lemmatize(word.lower()) for word in tokens]
         return tokens
 
     def __bag_of_words(self, text):
         tokens = self.__clean_text(text)
-        bag = [0] * len(self.words)
+        bag = [0] * len(self.__words)
         for w in tokens:
-            for idx, word in enumerate(self.words):
+            for idx, word in enumerate(self.__words):
                 if word == w:
                     bag[idx] = 1
         return np.array(bag)
 
     def __choose_response(self, intents_list):
         tag = intents_list[0]
-        list_of_intents = self.data["intents"]
-        for intent in list_of_intents:
-            if intent["tag"] == tag:
-                if "context_set" in intent:
-                    self.context = intent["context_set"]
-                return random.choice(intent["responses"])
+        intents_dataset = [dataset["intents"] for dataset in self.__data]
+        for list_of_intents in intents_dataset:
+            for intent in list_of_intents:
+                if intent["tag"] == tag:
+                    if "context_set" in intent:
+                        self.__chat_context = intent["context_set"]
+                    return random.choice(intent["responses"])
         return None
 
-    def get_bot_response(self, message):
+    def chat_respond(self, message):
         bow = self.__bag_of_words(message)
-        result = self.model.predict(np.array([bow]))[0]
+        result = self.__model.predict(np.array([bow]))[0]
 
-        result_index = [[idx, res] for idx, res in enumerate(result) if res > self.threshold]
+        result_index = [[idx, res] for idx, res in enumerate(result) if res > self.__threshold]
         result_index.sort(key=lambda x: x[1], reverse=True)
 
         return_list = []
         for r in result_index:
-            return_list.append(self.classes[r[0]])
+            return_list.append(self.__classes[r[0]])
 
         if len(return_list) == 0:
             response = None
         else:
             response = self.__choose_response(return_list)
 
-        return response.format(name=self.name) if response is not None else "Sorry, I don't understand you."
+        return response.format(bot_name=self.bot_name) if response is not None \
+            else f"Sorry, {self.bot_name} doesn't understand you."
 
-    def get_current_context(self):
-        return self.context
+    def chat_context(self):
+        return self.__chat_context
 
-    def __init__(self, name, dataset="./dataset/intents.json", threshold = 0.9):
-        self.name = name
-        self.threshold = threshold
+    def __init__(self, bot_name, dataset_path="./datasets/", threshold=0.9):
+        self.bot_name = bot_name
+        self.__threshold = threshold
 
-        self.__load_dataset(dataset)
-        self.__preprocessing()
+        for dataset in [file for file in os.listdir(dataset_path) if file.endswith(".json")]:
+            self.__load_dataset(dataset_path + dataset)
+        self.__preprocess_dataset()
 
         x, y = self.__create_train_data()
-        self.model = self.__train(x, y)
+        self.__model = self.__train(x, y)
