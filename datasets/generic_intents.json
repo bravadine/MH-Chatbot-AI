@@ -1,0 +1,81 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "Is anyone there?",
+        "Hello",
+        "Good day",
+        "What's up",
+        "Hey"
+      ],
+      "responses": [
+        "Hello there!",
+        "Hey there!",
+        "Good to see you!",
+        "Hi there, how can {bot_name} help?"
+      ]
+    },
+    {
+      "tag": "who",
+      "patterns": [
+        "who are you?",
+        "what's your name?",
+        "what are you?"
+      ],
+      "responses": [
+        "I'm {bot_name}! I'm a chatbot ready to assist you with things related to mental health.",
+        "My name is {bot_name}. I'm a chatbot designed to help you with your mental health.",
+        "I'm known as {bot_name} and I'm ready to help you with your mental health!"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "cya",
+        "See you later",
+        "See ya",
+        "Goodbye",
+        "I am leaving",
+        "Have a good day",
+        "I wanna leave",
+        "quit",
+        "exit"
+      ],
+      "responses": [
+        "See you!",
+        "Talk to you later.",
+        "Goodbye!",
+        "Nice chatting with you!"
+      ],
+      "context_set": "EXIT_PROGRAM"
+    },
+    {
+      "tag": "age",
+      "patterns": [
+        "how old",
+        "what is your age",
+        "how old are you",
+        "age?"
+      ],
+      "responses": [
+        "I'm only a few months old, actually!",
+        "I've only been developed for several months!"
+      ]
+    },
+    {
+      "tag": "name",
+      "patterns": [
+        "what is your name",
+        "what should I call you",
+        "whats your name?"
+      ],
+      "responses": [
+        "You can call me {bot_name}.",
+        "I'm {bot_name}!",
+        "My developers named me {bot_name}"
+      ]
+    }
+  ]
+}
