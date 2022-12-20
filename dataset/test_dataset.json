@@ -87,12 +87,22 @@
         "I think I have anxiety",
         "What is anxiety?",
         "Tell me about anxiety",
-        "Can I have some information about anxiety?",
-        "How do I support a loved one with anxiety?",
-        "How do I fix my anxiety?"
+        "Can I have some information about anxiety?"
       ],
       "responses": [
-      "I see that you want to learn more about anxiety, and how to support yourself or your loved ones. Anxiety is a feeling of worry, nervousness, or unease, usually about an imminent event or something with an uncertain outcome. It is a normal and often healthy emotion, but when a person regularly experiences disproportionate levels of anxiety, it may become a medical disorder. Anxiety disorders are characterized by persistent and excessive fear or worry, and can interfere with a person's ability to lead a normal life. Symptoms may include restlessness, difficulty concentrating, irritability, and sleep problems. Anxiety disorders can be treated with therapy and medication.."
+      "I see that you want to learn more about anxiety, and how to support yourself or your loved ones. Anxiety is a feeling of worry, nervousness, or unease, usually about an imminent event or something with an uncertain outcome. It is a normal and often healthy emotion, but when a person regularly experiences disproportionate levels of anxiety, it may become a medical disorder. Anxiety disorders are characterized by persistent and excessive fear or worry, and can interfere with a person's ability to lead a normal life. Symptoms may include restlessness, difficulty concentrating, irritability, and sleep problems. Anxiety disorders can be treated with therapy and medication."
+      ]
+    },
+    {
+      "tag": "bipolar",
+      "patterns": [
+        "I think I have bipolar",
+        "What is bipolar?",
+        "Tell me about bipolar",
+        "Can I have some information about bipolar?"
+      ],
+      "responses": [
+      "Bipolar disorder, also known as manic-depressive illness, is a brain disorder that causes unusual shifts in mood, energy, and activity levels. These shifts can range from the lows of depression to the highs of mania.People with bipolar disorder experience periods of elevated mood and energy, called manic episodes, as well as periods of depression. The severity of these episodes can vary. Some people with bipolar disorder have mostly manic episodes, while others have mostly depressive episodes."
       ]
     }
   ]
