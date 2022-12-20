@@ -4,16 +4,34 @@
       "tag": "greeting",
       "patterns": [
         "Hi",
-        "How are you",
         "Is anyone there?",
         "Hello",
         "Good day",
-        "Whats up"
+        "What's up"
+        "Good morning",
+        "Good afternoon",
+        "Good evening",
+        "Hey"
       ],
       "responses": [
-        "Hello!",
-        "Good to see you again!",
-        "Hi there, how can I help?"
+        "Hello there!",
+        "Hey there!",
+        "Good to see you!",
+        "Hi there, how can <name> help?"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "who",
+      "patterns": [
+        "who are you?",
+        "what's your name?"
+        "what are you?"
+      ],
+      "responses": [
+        "I'm <name>! I'm a chatbot ready to assist you with things related to mental health.",
+        "My name is <name>. I'm a chatbot designed to help you with your mental health.",
+        "I'm known as <name> and I'm ready to help you with your mental health!"
       ],
       "context_set": ""
     },
@@ -22,23 +40,31 @@
       "patterns": [
         "cya",
         "See you later",
+        "See ya",
         "Goodbye",
-        "I am Leaving",
-        "Have a Good day"
+        "I am leaving",
+        "Have a good day"
       ],
-      "responses": ["Sad to see you go :(", "Talk to you later", "Goodbye!"],
+      "responses": [
+        "See you!",
+        "Talk to you later.",
+        "Goodbye!",
+        "Nice chatting with you!"
+      ],
       "context_set": ""
     },
     {
       "tag": "age",
       "patterns": [
         "how old",
-        "how old is tim",
         "what is your age",
         "how old are you",
         "age?"
       ],
-      "responses": ["I am 18 years old!", "18 years young!"],
+      "responses": [
+        "I'm only a few months old, actually!",
+        "I've only been developed for several months!"
+      ],
       "context_set": ""
     },
     {
@@ -49,36 +75,10 @@
         "whats your name?"
       ],
       "responses": [
-        "You can call me Tim.",
-        "I'm Tim!",
-        "I'm Tim aka Tech With Tim."
+        "You can call me <name>.",
+        "I'm <name>!",
+        "My developers named me <name>"
       ],
-      "context_set": ""
-    },
-    {
-      "tag": "shop",
-      "patterns": [
-        "Id like to buy something",
-        "whats on the menu",
-        "what do you reccommend?",
-        "could i get something to eat",
-        "Show the menu",
-        "whats on the list?"
-      ],
-      "responses": [
-        "We sell chocolate chip cookies for $2!",
-        "Cookies are on the menu!"
-      ],
-      "context_set": ""
-    },
-    {
-      "tag": "hours",
-      "patterns": [
-        "when are you guys open",
-        "what are your hours",
-        "hours of operation"
-      ],
-      "responses": ["We are open 7am-4pm Monday-Friday!"],
       "context_set": ""
     },
     {
@@ -96,25 +96,27 @@
     {
       "tag": "bipolar",
       "patterns": [
-        "I think I have bipolar",
+        "I think I am bipolar",
+        "I think I have bipolar disorder",
         "What is bipolar?",
         "Tell me about bipolar",
         "Can I have some information about bipolar?"
       ],
       "responses": [
-      "I see that you want to learn more about anxiety, and how to support yourself or your loved ones. Bipolar disorder, also known as manic-depressive illness, is a brain disorder that causes unusual shifts in mood, energy, and activity levels. These shifts can range from the lows of depression to the highs of mania.People with bipolar disorder experience periods of elevated mood and energy, called manic episodes, as well as periods of depression. The severity of these episodes can vary. Some people with bipolar disorder have mostly manic episodes, while others have mostly depressive episodes."
+      "I see that you want to learn more about bipolar disorder, and how to support yourself or your loved ones. Bipolar disorder, also known as manic-depressive illness, is a brain disorder that causes unusual shifts in mood, energy, and activity levels. These shifts can range from the lows of depression to the highs of mania.People with bipolar disorder experience periods of elevated mood and energy, called manic episodes, as well as periods of depression. The severity of these episodes can vary. Some people with bipolar disorder have mostly manic episodes, while others have mostly depressive episodes."
       ]
     },
     {
       "tag": "depression",
       "patterns": [
         "I think I have depression",
+        "I might be depressed",
         "What is depression?",
         "Tell me about depression",
         "Can I have some information about depression?"
       ],
       "responses": [
-      "I see that you want to learn more about anxiety, and how to support yourself or your loved ones. Depression is a common and serious medical illness that negatively affects how you feel, the way you think and how you act. It causes feelings of sadness, hopelessness, and loss of interest in activities that a person normally enjoys. Depression can lead to a variety of emotional and physical problems and can decrease a person's ability to function at work and at home."
+      "I see that you want to learn more about depression, and how to support yourself or your loved ones. Depression is a common and serious medical illness that negatively affects how you feel, the way you think and how you act. It causes feelings of sadness, hopelessness, and loss of interest in activities that a person normally enjoys. Depression can lead to a variety of emotional and physical problems and can decrease a person's ability to function at work and at home."
       ]
     }
   ]
