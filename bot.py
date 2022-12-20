@@ -14,7 +14,6 @@ nltk.download("punkt")
 nltk.download("wordnet")
 nltk.download("omw-1.4")
 
-
 class Bot:
     __lemmatizer = WordNetLemmatizer()
     __data = []  # contains dataset json data
@@ -24,6 +23,9 @@ class Bot:
     __doc_y = []  # contains all tag corresponding to doc_x pattern
 
     __chat_context = None
+
+    def greet(self):
+        return "Hello, My name is {name}".format(name=self.bot_name)
 
     def __load_dataset(self, path):
         with open(path, "r") as file:
@@ -42,11 +44,11 @@ class Bot:
                 if tag not in self.__classes:
                     self.__classes.append(tag)
 
-            # Lemmatization and remove punctuation
-            self.__words = [
-                self.__lemmatizer.lemmatize(word.lower())
-                for word in self.__words if word not in string.punctuation
-            ]
+        # Lemmatization and remove punctuation
+        self.__words = [
+            self.__lemmatizer.lemmatize(word.lower())
+            for word in self.__words if word not in string.punctuation
+        ]
 
         # Sorting vocab alphabetical order & remove duplicate
         self.__words = sorted(list(set(self.__words)))
@@ -79,7 +81,7 @@ class Bot:
     def __train(train_x, train_y, model_path="./model"):
         input_shape = (len(train_x[0]),)
         output_shape = len(train_y[0])
-        epochs = 5000
+        epochs = 320
 
         # Deep learning model
         model = Sequential()
@@ -132,7 +134,7 @@ class Bot:
         bow = self.__bag_of_words(message)
         result = self.__model.predict(np.array([bow]))[0]
 
-        result_index = [[idx, res] for idx, res in enumerate(result) if res > self.__threshold]
+        result_index = [[idx, res] for idx, res in enumerate(result) if res >= self.__threshold]
         result_index.sort(key=lambda x: x[1], reverse=True)
 
         return_list = []
@@ -150,7 +152,7 @@ class Bot:
     def chat_context(self):
         return self.__chat_context
 
-    def __init__(self, bot_name, dataset_path="./datasets/", threshold=0.9):
+    def __init__(self, bot_name, dataset_path="./datasets/", threshold=0.7):
         self.bot_name = bot_name
         self.__threshold = threshold
 

@@ -1,7 +1,7 @@
 from bot import Bot
 
 if __name__ == "__main__":
-    bot = Bot("Charlie")
+    bot = Bot("Charlie", threshold=0.7)
     print("Chatbot is ready to talk with you! Say goodbye to the bot to end the session.")
 
     while bot.chat_context() != "EXIT_PROGRAM":

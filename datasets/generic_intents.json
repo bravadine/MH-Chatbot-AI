@@ -19,15 +19,30 @@
     },
     {
       "tag": "who",
-      "patterns": [
-        "who are you?",
-        "what's your name?",
-        "what are you?"
-      ],
+      "patterns": ["who are you?", "what's your name?", "what are you?"],
       "responses": [
         "I'm {bot_name}! I'm a chatbot ready to assist you with things related to mental health.",
         "My name is {bot_name}. I'm a chatbot designed to help you with your mental health.",
         "I'm known as {bot_name} and I'm ready to help you with your mental health!"
+      ]
+    },
+    {
+      "tag": "bot_condition",
+      "patterns": [
+        "How are you?",
+        "How are you feel?",
+        "Are you feeling well?",
+        "Are you okay?",
+        "Are you fine?",
+        "Are you feeling good?"
+      ],
+      "responses": [
+        "Great!",
+        "I'm feeling well",
+        "I'm fine thankyou",
+        "Fantastic!",
+        "I'm doing fine, thanks",
+        "I'm good"
       ]
     },
     {
@@ -53,12 +68,7 @@
     },
     {
       "tag": "age",
-      "patterns": [
-        "how old",
-        "what is your age",
-        "how old are you",
-        "age?"
-      ],
+      "patterns": ["how old", "what is your age", "how old are you", "age?"],
       "responses": [
         "I'm only a few months old, actually!",
         "I've only been developed for several months!"
@@ -76,6 +86,24 @@
         "I'm {bot_name}!",
         "My developers named me {bot_name}"
       ]
+    },
+    {
+      "tag": "negative_response",
+      "patterns": [
+        "no",
+        "dunno",
+        "nah",
+        "naw",
+        "not a chance",
+        "sorry",
+        "nope"
+      ],
+      "responses": ["Okay!", "Alright"]
+    },
+    {
+      "tag": "no_idea",
+      "patterns": ["I dont know", "Dunno"],
+      "responses": ["Okay then", "Okay, No problem"]
     }
   ]
 }
