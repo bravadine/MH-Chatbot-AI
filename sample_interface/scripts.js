@@ -1,7 +1,7 @@
 const messageInput = document.getElementById("message");
 const buttonSend = document.getElementById("button-addon2");
 const chatbox = document.getElementById("chatbox");
-const localUrl = "http://localhost:5000/bot";
+const localUrl = "http://localhost:5000/api/v1/bot";
 let botname = "Chat bot";
 
 function fetchInitData() {
