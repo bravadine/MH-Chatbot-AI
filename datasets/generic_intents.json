@@ -19,11 +19,20 @@
     },
     {
       "tag": "who",
-      "patterns": ["who are you?", "what's your name?", "what are you?"],
+      "patterns": [
+        "who are you?",
+        "what's your name?",
+        "what are you?",
+        "Tell me more about yourself.",
+        "What is your name?"
+      ],
       "responses": [
         "I'm {bot_name}! I'm a chatbot ready to assist you with things related to mental health.",
         "My name is {bot_name}. I'm a chatbot designed to help you with your mental health.",
-        "I'm known as {bot_name} and I'm ready to help you with your mental health!"
+        "I'm known as {bot_name} and I'm ready to help you with your mental health!",
+        "I'm {bot_name}, your personal mental health bot. How are you feeling today?",
+        "I'm {bot_name}, a bot designed to assist you with your mental health. Tell me about yourself.",
+        "I'm {bot_name}. I am a conversational agent designed to mimic a therapist. So how are you feeling today?"
       ]
     },
     {
